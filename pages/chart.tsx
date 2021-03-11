@@ -9,7 +9,7 @@ import { Button } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const api = axios.create({
-  baseURL: 'http://174.129.155.233:5000/'
+  baseURL: 'https://174.129.155.233:5000/'
 })
 
 export default function Home() {
