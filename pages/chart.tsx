@@ -9,16 +9,16 @@ import { Button } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const api = axios.create({
-  baseURL: 'http://54.87.15.189:5000/'
+  baseURL: 'http://174.129.155.233:5000/'
 })
 
 export default function Home() {
   var [label, setLabel] = useState([])
   var [labeldata, setLabeldata] = useState([])
   var [month, setMonth] = useState("3")
-  var [chartType, setchartType] = useState("line")
-  var [database, setDatabase] = useState("parttime")
-  var [datatype, setDatatype] = useState("datetimeDay")
+  var [chartType, setchartType] = useState("doughnut")
+  var [database, setDatabase] = useState("jobsdb")
+  var [datatype, setDatatype] = useState("countofDB")
 
   useEffect(() => {
     var dataget = []
@@ -60,7 +60,7 @@ export default function Home() {
       <Button onClick={()=>{setchartType("line")}} variant="outline-success">Line</Button>
       <Button onClick={()=>{setDatabase("jobsdb")}} variant="outline-primary">jobsdb</Button>
       <Button onClick={()=>{setDatabase("ctgoodjobs")}} variant="outline-secondary">ctgoodjobs</Button>
-      <Button onClick={()=>{setDatabase("parttime")}} variant="outline-success">parttime</Button>
+      <Button onClick={()=>{setDatabase("parttimehk")}} variant="outline-success">parttime</Button>
       <Button onClick={()=>{setDatatype("countOfDB")}} variant="outline-secondary">countOfDB</Button>
       <Button onClick={()=>{setDatatype("datetimeDay")}} variant="outline-success">datetimeDay</Button>
       {{

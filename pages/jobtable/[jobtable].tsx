@@ -7,8 +7,7 @@ import Navbar from '../component/NavbarComponent'
 import { BiSkipPrevious, BiSkipNext, BiCaretLeft, BiCaretRight} from 'react-icons/bi'
 import { useRouter } from 'next/router'
 
-const api = axios.create({baseURL: 'http://54.87.15.189:5000/'})
-
+const api = axios.create({baseURL: 'http://174.129.155.233:5000/'})
 
 const table = () => {
     const [table,
@@ -17,13 +16,26 @@ const table = () => {
     const [latest, setLatest] = useState("")
     const [searchCount, setSearchCount] = useState(-1)
     const router = useRouter()
-    const web = router.query.jobtable || router.asPath.match(new RegExp(`[&?]${"jobtable"}=(.*)(&|$)`))
-    const page = Number(router.query.page) || router.asPath.match(new RegExp(`[&?]${"page"}=(.*)(&|$)`))
-    const searchWord = router.query["search-word"] || router.asPath.match(new RegExp(`[&?]${"search-word"}=(.*)(&|$)`))
+  
+    const id = router.query
 
+    var web = router.query["jobtable"]
+    var page = router.query["page"]
+    var searchWord = router.query["search-word"]
+    
     useEffect(() => {
         setPending(true)
         var count = 0
+
+        if(!id){
+            return
+        }
+        else {
+            var web = id["jobtable"]
+            var page = id["page"]
+            var searchWord = id["search-word"]
+        }
+
         const getPage = async()=>{
             if(searchWord == null){
                 await api
@@ -70,7 +82,7 @@ const table = () => {
                         setPending(false)
                     })    
         }
-        if(web !== "")getPage()
+        getPage()
         getCount()
         getLatestRecord()
          
@@ -173,7 +185,7 @@ const table = () => {
                 subHeader
                 subHeaderComponent={
                 <Row>
-                {searchCount!=-1 && !pending ? <p>Showing {Number(page)+20*(Number(page)-1)}-{page!=Math.ceil(searchCount/20) ? Number(page)*20 : searchCount} of {searchCount}-- </p> : null}
+                {searchCount!=-1 && !pending ? <p>Showing {1+20*(Number(page)-1)}-{Number(page)!=Math.ceil(searchCount/20) ? Number(page)*20 : searchCount} of {searchCount}-- </p> : null}
                 <p>LatestUpdate: {latest || ""}</p>
             </Row>
             }
@@ -185,11 +197,11 @@ const table = () => {
                 pending ||
                 <Row xs={3}>
                      <ButtonGroup className="mr-2 mx-auto" aria-label="First group">
-                        <Button variant="secondary" disabled={page == 1} href={`/jobtable/${web}?page=${1}&per-page=20`}><BiSkipPrevious/></Button>
-                        <Button variant="secondary" disabled={page == 1} href={`/jobtable/${web}?page=${Number(page)-1}&per-page=20`}><BiCaretLeft/></Button>
+                        <Button variant="secondary" disabled={Number(page) == 1} href={`/jobtable/${web}?page=${1}&per-page=20/${searchWord != null? "&search-word=" + searchWord: ""}`}><BiSkipPrevious/></Button>
+                        <Button variant="secondary" disabled={Number(page) == 1} href={`/jobtable/${web}?page=${Number(page)-1}&per-page=20/${searchWord != null? "&search-word=" + searchWord: ""}`}><BiCaretLeft/></Button>
                         <Button variant="secondary">{page}</Button>
-                        <Button variant="secondary" disabled={page == Math.ceil(searchCount/20)} href={`/jobtable/${web}?page=${Number(page)+1}&per-page=20`}><BiCaretRight/></Button>
-                        <Button variant="secondary" disabled={page == Math.ceil(searchCount/20)} href={`/jobtable/${web}?page=${Math.ceil(searchCount/20)}&per-page=20`}> <BiSkipNext/></Button>
+                        <Button variant="secondary" disabled={Number(page) == Math.ceil(searchCount/20)} href={`/jobtable/${web}?page=${Number(page)+1}&per-page=20/${searchWord != null? "&search-word=" + searchWord: ""}`}><BiCaretRight/></Button>
+                        <Button variant="secondary" disabled={Number(page) == Math.ceil(searchCount/20)} href={`/jobtable/${web}?page=${Math.ceil(searchCount/20)}&per-page=20/${searchWord != null? "&search-word=" + searchWord: ""}`}> <BiSkipNext/></Button>
                     </ButtonGroup>
                 </Row>
             }
