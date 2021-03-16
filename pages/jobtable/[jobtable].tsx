@@ -176,7 +176,7 @@ const table = () => {
       };
     return (
         <div>
-            <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"/> 
+            <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests"/> 
             <Navbar />
             <DataTable
                 responsive
