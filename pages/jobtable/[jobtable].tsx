@@ -7,7 +7,7 @@ import Navbar from '../component/NavbarComponent'
 import { BiSkipPrevious, BiSkipNext, BiCaretLeft, BiCaretRight} from 'react-icons/bi'
 import { useRouter } from 'next/router'
 
-const api = axios.create({baseURL: 'https://174.129.155.233:5000/'})
+const api = axios.create({baseURL: 'http://34.229.70.78:5000//'})
 
 const table = () => {
     const [table,
@@ -194,7 +194,7 @@ const table = () => {
                 progressComponent={<LinearIndeterminate />}
                 />
             {
-                pending ||
+                !pending ?
                 <Row xs={3}>
                      <ButtonGroup className="mr-2 mx-auto" aria-label="First group">
                         <Button variant="secondary" disabled={Number(page) == 1} href={`/jobtable/${web}?page=${1}&per-page=20/${searchWord != null? "&search-word=" + searchWord: ""}`}><BiSkipPrevious/></Button>
@@ -203,7 +203,8 @@ const table = () => {
                         <Button variant="secondary" disabled={Number(page) == Math.ceil(searchCount/20)} href={`/jobtable/${web}?page=${Number(page)+1}&per-page=20/${searchWord != null? "&search-word=" + searchWord: ""}`}><BiCaretRight/></Button>
                         <Button variant="secondary" disabled={Number(page) == Math.ceil(searchCount/20)} href={`/jobtable/${web}?page=${Math.ceil(searchCount/20)}&per-page=20/${searchWord != null? "&search-word=" + searchWord: ""}`}> <BiSkipNext/></Button>
                     </ButtonGroup>
-                </Row>
+                </Row>:
+                null
             }
             
         </div>
