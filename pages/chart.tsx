@@ -9,7 +9,7 @@ import { Button } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const api = axios.create({
-  baseURL: 'http://34.229.70.78:5000/'
+  baseURL: 'https://34.229.70.78:5000/'
 })
 
 export default function Home() {
@@ -115,7 +115,6 @@ export default function Home() {
 
   return (
     <div>
-      <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests"/> 
       <Button onClick={()=>{setchartType("doughnut")}} variant="outline-primary">Doughnut</Button>
       <Button onClick={()=>{setchartType("bars")}} variant="outline-secondary">Bars</Button>
       <Button onClick={()=>{setchartType("line")}} variant="outline-success">Line</Button>

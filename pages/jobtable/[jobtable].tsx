@@ -7,7 +7,7 @@ import Navbar from '../component/NavbarComponent'
 import { BiSkipPrevious, BiSkipNext, BiCaretLeft, BiCaretRight} from 'react-icons/bi'
 import { useRouter } from 'next/router'
 
-const api = axios.create({baseURL: 'http://34.229.70.78:5000//'})
+const api = axios.create({baseURL: 'https://34.229.70.78:5000//'})
 
 const table = () => {
     const [table,
@@ -176,7 +176,6 @@ const table = () => {
       };
     return (
         <div>
-            <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests"/> 
             <Navbar />
             <DataTable
                 responsive
