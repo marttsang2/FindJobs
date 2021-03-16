@@ -4,12 +4,15 @@ const app = express()
 const sqlite3 = require('sqlite3').verbose()
 const cors = require("cors")
 const { json } = require("body-parser")
+const https = require("https")
 
 const corsOptions ={
     origin:'http://localhost:3000', 
     Credential:true,            //access-control-allow-credentials:true
-    optionSuccessStatus:200
+    optionSuccessStatus:200,
 }
+
+var httpsServer = https.createServer(options, app).listen(5000);
 
 let db = new sqlite3.Database('../Crawling/findjobs/findjobs.db')
 

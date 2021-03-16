@@ -16,8 +16,10 @@ const NavbarComponent = () => {
         setInputWord] = useState("")
     const router = useRouter()
 
-    return ( <> <Navbar bg="dark" variant="dark">
+    return ( <> <Navbar bg="dark" variant="dark" expand="lg">
         <Navbar.Brand href={`/jobtable/all?page=1&per-page=20`}>FindJobs</Navbar.Brand>
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="mr-auto">
             <Nav.Link eventKey="jobsdb" href={`/jobtable/jobsdb?page=1&per-page=20`}>Jobsdb</Nav.Link>
             <Nav.Link
@@ -31,7 +33,7 @@ const NavbarComponent = () => {
                 href={`/chart`}>Chart</Nav.Link>
 
         </Nav>
-
+       
         <InputGroup.Append>
             <FormControl
                 type="text"
@@ -51,7 +53,7 @@ const NavbarComponent = () => {
                 ? "&search-word=" + inputWord
                 : ""}`}>Search</Button>
         </InputGroup.Append>
-
+        </Navbar.Collapse>
     </Navbar> </>
     )
 }
