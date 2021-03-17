@@ -12,7 +12,7 @@ const api = axios.create({baseURL: 'https://34.229.70.78:5000//'})
 const table = () => {
     const [table,
         setTable] = useState([])
-    const [pending, setPending] = useState(false)
+    const [pending, setPending] = useState(true)
     const [latest, setLatest] = useState("")
     const [searchCount, setSearchCount] = useState(-1)
     const router = useRouter()
@@ -42,6 +42,7 @@ const table = () => {
                     .post(`/filterweb/page=${page}`,{web: web})
                     .then(res => {
                     setTable(res.data.data)
+                    setPending(false)
                     })
             }
             else{
@@ -49,6 +50,7 @@ const table = () => {
                     .post(`/filterwords/page=${page}`,{words: searchWord})
                     .then(res => {
                     setTable(res.data.data)
+                    setPending(false)
                     })
             }
         }
@@ -60,7 +62,6 @@ const table = () => {
                         count += Number(res.data.data[i]["COUNT(*)"])
                     }
                     setSearchCount(count)
-                    setPending(false)
                 })
             }
             else {
@@ -70,7 +71,6 @@ const table = () => {
                         count += Number(res.data.data[i]["COUNT(*)"])
                     }
                     setSearchCount(count)
-                    setPending(false)
                 })
             }
         }
@@ -79,12 +79,12 @@ const table = () => {
                     .get("/latest")
                     .then(res => {
                         setLatest(res.data.data)
-                        setPending(false)
                     })    
         }
         getPage()
         getCount()
         getLatestRecord()
+        
          
     }, [page, web, searchWord])
 
