@@ -176,7 +176,7 @@ const table = () => {
       };
     return (
         <div>
-            <Navbar />
+            <Navbar istable={true}/>
             <DataTable
                 responsive
                 highlightOnHover

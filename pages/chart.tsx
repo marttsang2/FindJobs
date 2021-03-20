@@ -5,7 +5,7 @@ import NavbarComponent from './component/NavbarComponent'
 import DoughnutComponent from './component/DoughnutComponent'
 import BarsComponent from './component/BarsComponent'
 import LineComponent from './component/LineComponent'
-import { Button } from 'react-bootstrap'
+import { Button, Card, Col, Container, Nav, Row } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const api = axios.create({
@@ -20,6 +20,22 @@ export default function Home() {
   var [database, setDatabase] = useState("jobsdb")
   var [datatype, setDatatype] = useState("countofDB")
 
+  if (label.length == 0 && labeldata.length == 0){
+    var dataget = []
+    var labelget = []
+    api.get("/api/chart").then(res=>{
+      console.log(res.data)
+      for (var i in res.data){
+        dataget.push(Object.values(res.data[i])[0])
+        labelget.push(Object.keys(res.data[i])[0])
+      }
+      setchartType("doughnut")
+      setLabeldata(dataget)
+      setLabel(labelget)
+    })
+  }
+  
+
   useEffect(() => {
     var dataget = []
     var labelget = []
@@ -31,13 +47,14 @@ export default function Home() {
             dataget.push(Object.values(res.data[i])[0])
             labelget.push(Object.keys(res.data[i])[0])
           }
+          setchartType("doughnut")
           setLabeldata(dataget)
           setLabel(labelget)
         })
         break
       case "datetimeDay":
         var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-        var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+        var months = ['January','February','March','April','May','June','July','August','Septemrer','October','Novemrer','Decemrer'];
         api.get(`/api/chart/datetime/day/${database}/${month}/2021`).then(res=>{
           for (var i in res.data){
             var getmonth = months[Number(month)-1]
@@ -46,6 +63,7 @@ export default function Home() {
             dataget.push(res.data[i][1])
             labelget.push("(" + days[getweekday] + ")" + res.data[i][0])
           }
+          setchartType("line")
           setLabeldata(dataget)
           setLabel(labelget)
         })
@@ -64,6 +82,7 @@ export default function Home() {
               labelget.push(res.data[i][0])
             }
           }
+          setchartType("bars")
           setLabeldata(dataget)
           setLabel(labelget)
         })
@@ -84,6 +103,7 @@ export default function Home() {
               labelget.push(res.data[i][0])
             }
           }
+          setchartType("bars")
           setLabeldata(dataget)
           setLabel(labelget)
         })
@@ -104,8 +124,8 @@ export default function Home() {
               dataget.push(res.data[i][1])
               labelget.push(res.data[i][0])
             }
-            
           }
+          setchartType("bars")
           setLabeldata(dataget)
           setLabel(labelget)
         })
@@ -115,27 +135,59 @@ export default function Home() {
 
   return (
     <div>
-      <Button onClick={()=>{setchartType("doughnut")}} variant="outline-primary">Doughnut</Button>
-      <Button onClick={()=>{setchartType("bars")}} variant="outline-secondary">Bars</Button>
-      <Button onClick={()=>{setchartType("line")}} variant="outline-success">Line</Button>
+      <NavbarComponent istable={false}/>
 
-      <Button onClick={()=>{setDatabase("all")}} variant="outline-primary">ALL</Button>
-      <Button onClick={()=>{setDatabase("jobsdb")}} variant="outline-primary">jobsdb</Button>
-      <Button onClick={()=>{setDatabase("ctgoodjobs")}} variant="outline-secondary">ctgoodjobs</Button>
-      <Button onClick={()=>{setDatabase("parttimehk")}} variant="outline-success">parttime</Button>
-      
-      <Button onClick={()=>{setDatatype("countOfDB")}} variant="outline-secondary">countOfDB</Button>
-      <Button onClick={()=>{setDatatype("datetimeDay")}} variant="outline-success">datetimeDay</Button>
-      <Button onClick={()=>{setDatatype("worktype")}} variant="outline-success">workType</Button>
-      <Button onClick={()=>{setDatatype("category")}} variant="outline-success">category</Button>
-      <Button onClick={()=>{setDatatype("location")}} variant="outline-success">location</Button>
-      {{
-        'doughnut':<DoughnutComponent labeldata={labeldata} label={label}/>,
-        
-        'bars':<BarsComponent labeldata={labeldata} label={label}/>,
-      
-        'line':<LineComponent labeldata={labeldata} label={label}/>,
-      }[chartType]}
+      <Container className="mt-4">
+        <Row >
+          <Col md={4}>
+            <Card  >
+              <div className="m-3">
+              <h4>Selected</h4>
+              <div className="column mb-3">
+                <Button className="mr-1 p-2 border border-secondary rounded" variant="outline-secondary">{chartType}</Button>
+                <Button className="mr-1 p-2 border border-secondary rounded" variant="outline-secondary">{database}</Button>
+                <Button className="mr-1 p-2 border border-secondary rounded" variant="outline-secondary">{datatype}</Button>
+              </div>
+              <h5>Graph Type</h5>
+                <div>
+                  <Button className="mr-3 mb-3" onClick={()=>{setchartType("doughnut")}} variant="outline-primary">Doughnut</Button>
+                  <Button className="mr-3 mb-3" onClick={()=>{setchartType("bars")}} variant="outline-secondary">Bars</Button>
+                  <Button className="mr-3 mb-3" onClick={()=>{setchartType("line")}} variant="outline-success">Line</Button>
+                </div>
+              <h5>Find Job Website</h5>
+                <div>
+                  <Button className="mr-3 mb-3" onClick={()=>{setDatabase("all")}} variant="outline-primary">ALL</Button>
+                  <Button className="mr-3 mb-3" onClick={()=>{setDatabase("jobsdb")}} variant="outline-primary">jobsdb</Button>
+                  <Button className="mr-3 mb-3" onClick={()=>{setDatabase("ctgoodjobs")}} variant="outline-secondary">ctgoodjobs</Button>
+                  <Button className="mr-3 mb-3" onClick={()=>{setDatabase("parttimehk")}} variant="outline-success">parttime</Button>
+                </div>
+              <h5>Display Category</h5>
+                <div>
+                  <Button className="mr-3 mb-3" onClick={()=>{setDatatype("countOfDB")}} variant="outline-secondary">countOfDB</Button>
+                  <Button className="mr-3 mb-3" onClick={()=>{setDatatype("datetimeDay")}} variant="outline-success">datetimeDay</Button>
+                  <Button className="mr-3 mb-3" onClick={()=>{setDatatype("worktype")}} variant="outline-success">workType</Button>
+                  <Button className="mr-3 mb-3" onClick={()=>{setDatatype("category")}} variant="outline-success">category</Button>
+                  <Button className="mr-3 mb-3" onClick={()=>{setDatatype("location")}} variant="outline-success">location</Button>
+                </div>
+                </div>
+            </Card>
+          </Col>
+          <Col md={8}>
+            <Card className="mx-auto">
+              <div className="m-3">
+                      {{
+                  'doughnut':<DoughnutComponent labeldata={labeldata} label={label}/>,
+                  
+                  'bars':<BarsComponent labeldata={labeldata} label={label}/>,
+                
+                  'line':<LineComponent labeldata={labeldata} label={label}/>,
+                }[chartType]}
+                </div>
+            </Card>
+          </Col>
+        </Row>
+      </Container>
+
     </div>
   )
 }
