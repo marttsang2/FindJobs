@@ -157,7 +157,7 @@ export default function Home() {
                 </div>
               <h5>DataType</h5>
                 <div>
-                  <Button className="mr-3 mb-3" onClick={()=>{setDatatype("countOfDB")}} variant={ datatype == "countofDB"? "primary": "outline-primary"}>count of Database</Button>
+                  <Button className="mr-3 mb-3" onClick={()=>{setDatatype("countOfDB")}} variant={ datatype == "countOfDB"? "primary": "outline-primary"}>count of Database</Button>
                   <Button className="mr-3 mb-3" onClick={()=>{setDatatype("datetimeDay")}} variant={ datatype == "datetimeDay"? "secondary": "outline-secondary"}>Count of Job Post per day</Button>
                   <Button className="mr-3 mb-3" onClick={()=>{setDatatype("worktype")}} variant={ datatype == "worktype"? "success": "outline-success"}>workType</Button>
                   <Button className="mr-3 mb-3" onClick={()=>{setDatatype("category")}} variant={ datatype == "category"? "danger": "outline-danger"}>category</Button>
