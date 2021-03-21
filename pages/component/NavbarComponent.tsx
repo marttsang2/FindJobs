@@ -18,10 +18,11 @@ const NavbarComponent = ({istable}) => {
 
     return ( <> 
     
-    <Navbar bg="dark" variant="dark" expand="lg" > 
+    <Navbar bg="dark" variant="dark"  expand="sm" > 
         <Navbar.Brand href={`/jobtable/all?page=1&per-page=20`}>FindJobs</Navbar.Brand>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         {istable ?
+        <>
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="mr-auto">
                 <Nav.Link eventKey="jobsdb" href={`/jobtable/jobsdb?page=1&per-page=20`}>Jobsdb</Nav.Link>
@@ -59,6 +60,7 @@ const NavbarComponent = ({istable}) => {
         </InputGroup.Append>
 
         </Navbar.Collapse>
+        </>
         :null}
     </Navbar> </>
     )
