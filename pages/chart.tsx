@@ -17,8 +17,8 @@ export default function Home() {
   var [labeldata, setLabeldata] = useState([])
   var [month, setMonth] = useState("3")
   var [chartType, setchartType] = useState("doughnut")
-  var [database, setDatabase] = useState("jobsdb")
-  var [datatype, setDatatype] = useState("countofDB")
+  var [database, setDatabase] = useState("all")
+  var [datatype, setDatatype] = useState("countOfDB")
 
   if (label.length == 0 && labeldata.length == 0){
     var dataget = []
@@ -142,32 +142,26 @@ export default function Home() {
           <Col md={4}>
             <Card  >
               <div className="m-3">
-              <h4>Selected</h4>
-              <div className="column mb-3">
-                <Button className="mr-1 p-2 border border-secondary rounded" variant="outline-secondary">{chartType}</Button>
-                <Button className="mr-1 p-2 border border-secondary rounded" variant="outline-secondary">{database}</Button>
-                <Button className="mr-1 p-2 border border-secondary rounded" variant="outline-secondary">{datatype}</Button>
-              </div>
               <h5>Graph Type</h5>
                 <div>
-                  <Button className="mr-3 mb-3" onClick={()=>{setchartType("doughnut")}} variant="outline-primary">Doughnut</Button>
-                  <Button className="mr-3 mb-3" onClick={()=>{setchartType("bars")}} variant="outline-secondary">Bars</Button>
-                  <Button className="mr-3 mb-3" onClick={()=>{setchartType("line")}} variant="outline-success">Line</Button>
+                  <Button className="mr-3 mb-3" onClick={()=>{setchartType("doughnut")}} variant={ chartType == "doughnut"? "danger": "outline-danger"}>Doughnut</Button>
+                  <Button className="mr-3 mb-3" onClick={()=>{setchartType("bars")}} variant={ chartType == "bars"? "primary": "outline-primary"}>Bars</Button>
+                  <Button className="mr-3 mb-3" onClick={()=>{setchartType("line")}} variant={ chartType == "line"? "success": "outline-success"}>Line</Button>
                 </div>
               <h5>Find Job Website</h5>
                 <div>
-                  <Button className="mr-3 mb-3" onClick={()=>{setDatabase("all")}} variant="outline-primary">ALL</Button>
-                  <Button className="mr-3 mb-3" onClick={()=>{setDatabase("jobsdb")}} variant="outline-primary">jobsdb</Button>
-                  <Button className="mr-3 mb-3" onClick={()=>{setDatabase("ctgoodjobs")}} variant="outline-secondary">ctgoodjobs</Button>
-                  <Button className="mr-3 mb-3" onClick={()=>{setDatabase("parttimehk")}} variant="outline-success">parttime</Button>
+                  <Button className="mr-3 mb-3" onClick={()=>{setDatabase("all")}} variant={ database == "all"? "secondary": "outline-secondary"}>ALL</Button>
+                  <Button className="mr-3 mb-3" onClick={()=>{setDatabase("jobsdb")}} variant={ database == "jobsdb"? "primary": "outline-primary"}>jobsdb</Button>
+                  <Button className="mr-3 mb-3" onClick={()=>{setDatabase("ctgoodjobs")}} variant={ database == "ctgoodjobs"? "warning": "outline-warning"}>ctgoodjobs</Button>
+                  <Button className="mr-3 mb-3" onClick={()=>{setDatabase("parttimehk")}} variant={ database == "parttimehk"? "info": "outline-info"}>parttime</Button>
                 </div>
-              <h5>Display Category</h5>
+              <h5>DataType</h5>
                 <div>
-                  <Button className="mr-3 mb-3" onClick={()=>{setDatatype("countOfDB")}} variant="outline-secondary">countOfDB</Button>
-                  <Button className="mr-3 mb-3" onClick={()=>{setDatatype("datetimeDay")}} variant="outline-success">datetimeDay</Button>
-                  <Button className="mr-3 mb-3" onClick={()=>{setDatatype("worktype")}} variant="outline-success">workType</Button>
-                  <Button className="mr-3 mb-3" onClick={()=>{setDatatype("category")}} variant="outline-success">category</Button>
-                  <Button className="mr-3 mb-3" onClick={()=>{setDatatype("location")}} variant="outline-success">location</Button>
+                  <Button className="mr-3 mb-3" onClick={()=>{setDatatype("countOfDB")}} variant={ datatype == "countofDB"? "primary": "outline-primary"}>count of Database</Button>
+                  <Button className="mr-3 mb-3" onClick={()=>{setDatatype("datetimeDay")}} variant={ datatype == "datetimeDay"? "secondary": "outline-secondary"}>Count of Job Post per day</Button>
+                  <Button className="mr-3 mb-3" onClick={()=>{setDatatype("worktype")}} variant={ datatype == "worktype"? "success": "outline-success"}>workType</Button>
+                  <Button className="mr-3 mb-3" onClick={()=>{setDatatype("category")}} variant={ datatype == "category"? "danger": "outline-danger"}>category</Button>
+                  <Button className="mr-3 mb-3" onClick={()=>{setDatatype("location")}} variant={ datatype == "location"? "info": "outline-info"}>location</Button>
                 </div>
                 </div>
             </Card>
