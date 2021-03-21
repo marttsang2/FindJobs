@@ -5,7 +5,7 @@ import NavbarComponent from './component/NavbarComponent'
 import DoughnutComponent from './component/DoughnutComponent'
 import BarsComponent from './component/BarsComponent'
 import LineComponent from './component/LineComponent'
-import { Button, Card, Col, Container, Nav, Row } from 'react-bootstrap'
+import { Button, Card, Col, Container, Nav, Row, Spinner } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const api = axios.create({
@@ -19,6 +19,7 @@ export default function Home() {
   var [chartType, setchartType] = useState("doughnut")
   var [database, setDatabase] = useState("all")
   var [datatype, setDatatype] = useState("countOfDB")
+  var [loading, setLoading] = useState(true)
 
   if (label.length == 0 && labeldata.length == 0){
     var dataget = []
@@ -32,6 +33,7 @@ export default function Home() {
       setchartType("doughnut")
       setLabeldata(dataget)
       setLabel(labelget)
+      setLoading(false)
     })
   }
   
@@ -39,6 +41,7 @@ export default function Home() {
   useEffect(() => {
     var dataget = []
     var labelget = []
+    setLoading(true)
     switch(datatype){
       case "countOfDB":
         api.get("/api/chart").then(res=>{
@@ -50,6 +53,7 @@ export default function Home() {
           setchartType("doughnut")
           setLabeldata(dataget)
           setLabel(labelget)
+          setLoading(false)
         })
         break
       case "datetimeDay":
@@ -66,6 +70,7 @@ export default function Home() {
           setchartType("line")
           setLabeldata(dataget)
           setLabel(labelget)
+          setLoading(false)
         })
         break
       case "worktype":
@@ -85,6 +90,7 @@ export default function Home() {
           setchartType("bars")
           setLabeldata(dataget)
           setLabel(labelget)
+          setLoading(false)
         })
         break
         case "category":
@@ -106,6 +112,7 @@ export default function Home() {
           setchartType("bars")
           setLabeldata(dataget)
           setLabel(labelget)
+          setLoading(false)
         })
         break
         case "location":
@@ -128,9 +135,11 @@ export default function Home() {
           setchartType("bars")
           setLabeldata(dataget)
           setLabel(labelget)
+          setLoading(false)
         })
         break
     }
+    
   }, [datatype,database])
 
   return (
@@ -168,7 +177,12 @@ export default function Home() {
           </Col>
           <Col md={8}>
             <Card className="mx-auto">
-              <div className="m-3">
+              {loading ? 
+                <Spinner className="mx-auto my-5" animation="border" role="status">
+                  <span className="sr-only">Loading...</span>
+                </Spinner>
+                :
+                <div className="m-3">
                       {{
                   'doughnut':<DoughnutComponent labeldata={labeldata} label={label}/>,
                   
@@ -177,6 +191,8 @@ export default function Home() {
                   'line':<LineComponent labeldata={labeldata} label={label}/>,
                 }[chartType]}
                 </div>
+                }
+              
             </Card>
           </Col>
         </Row>
