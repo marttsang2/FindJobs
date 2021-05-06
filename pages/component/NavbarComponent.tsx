@@ -34,9 +34,9 @@ const NavbarComponent = ({istable}) => {
                 href={`/jobtable/ctgoodjobs?page=1&per-page=20`}>Ctgoodjobs</Nav.Link>
             
     
-            <Nav.Link
+            {/* <Nav.Link
                 eventKey="chart"
-                href={`/chart`}>Chart</Nav.Link>
+                href={`/chart`}>Chart</Nav.Link> */}
 
         </Nav>
         <InputGroup.Append>
