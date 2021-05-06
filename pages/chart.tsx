@@ -9,7 +9,7 @@ import { Button, Card, Col, Container, Nav, Row, Spinner } from 'react-bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const api = axios.create({
-  baseURL: 'https://34.229.70.78:5000/'
+  baseURL: 'http://54.226.165.254:5000/'
 })
 
 export default function Home() {
