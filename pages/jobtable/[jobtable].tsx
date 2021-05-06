@@ -7,7 +7,7 @@ import Navbar from '../component/NavbarComponent'
 import { BiSkipPrevious, BiSkipNext, BiCaretLeft, BiCaretRight} from 'react-icons/bi'
 import { useRouter } from 'next/router'
 
-const api = axios.create({baseURL: 'http://52.87.217.9:5000/'})
+const api = axios.create({baseURL: 'http://54.226.165.254:5000/'})
 
 const table = () => {
     const [table,
